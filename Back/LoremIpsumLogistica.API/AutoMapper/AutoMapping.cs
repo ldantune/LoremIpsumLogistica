@@ -15,10 +15,12 @@ public class AutoMapping : Profile
     private void RequestToDomain()
     {
         CreateMap<CadastroRequestJson, Models.Cadastro>();
+        CreateMap<EnderecoRequestJson, Models.Endereco>();
     }
 
     private void DomainToResponse()
     {
         CreateMap<Models.Cadastro, CadastroResponseJson>();
+        CreateMap<Models.Endereco, EnderecoResponseJson>();
     }
 }

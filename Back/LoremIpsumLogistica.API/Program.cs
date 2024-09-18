@@ -5,6 +5,7 @@ using LoremIpsumLogistica.API.Filters;
 using LoremIpsumLogistica.API.Interface;
 using LoremIpsumLogistica.API.Repositories;
 using LoremIpsumLogistica.API.UseCase.Cadastro;
+using LoremIpsumLogistica.API.UseCase.Endereco;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,14 +29,22 @@ builder.Services.AddDbContext<LoremIpsumLogisticaDBContext>(
 
 // Repositories
 builder.Services.AddScoped<ICadastroRepository, CadastroRepository>();
+builder.Services.AddScoped<IEnderecoRepository, EnderecoRepository>();
 
 
-//UseCase
+//UseCase Cadastro
 builder.Services.AddScoped<IBuscarTodosUseCase, BuscarTodosUseCase>();
 builder.Services.AddScoped<ICadastroByIdUseCase, CadastroByIdUseCase>();
 builder.Services.AddScoped<ISalvarCadastroUseCase, SalvarCadastroUseCase>();
 builder.Services.AddScoped<IAtualizarUseCase, AtualizarUseCase>();
 builder.Services.AddScoped<IExcluirCadastroUseCase, ExcluirCadastroUseCase>();
+
+//UseCase Endereco
+builder.Services.AddScoped<IBuscaByIdCadastroUseCase, BuscaByIdCadastroUseCase>();
+builder.Services.AddScoped<ISalvarEnderecoUseCase, SalvarEnderecoUseCase>();
+builder.Services.AddScoped<IAtualizarEnderecoUseCase, AtualizarEnderecoUseCase>();
+builder.Services.AddScoped<IExcluirEnderecoUseCase, ExcluirEnderecoUseCase>();
+builder.Services.AddScoped<IEnderecoByIdUseCase, EnderecoByIdUseCase>();
 
 var app = builder.Build();
 

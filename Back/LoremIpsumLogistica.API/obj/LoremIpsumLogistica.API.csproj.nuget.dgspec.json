@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\LoremIpsumLogistica.API.csproj": {}
+    "C:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\LoremIpsumLogistica.API.csproj": {}
   },
   "projects": {
-    "c:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\LoremIpsumLogistica.API.csproj": {
+    "C:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\LoremIpsumLogistica.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\LoremIpsumLogistica.API.csproj",
+        "projectUniqueName": "C:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\LoremIpsumLogistica.API.csproj",
         "projectName": "LoremIpsumLogistica.API",
-        "projectPath": "c:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\LoremIpsumLogistica.API.csproj",
+        "projectPath": "C:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\LoremIpsumLogistica.API.csproj",
         "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-        "outputPath": "c:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\obj\\",
+        "outputPath": "C:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",

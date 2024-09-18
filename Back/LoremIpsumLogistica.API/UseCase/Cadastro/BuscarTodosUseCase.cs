@@ -19,11 +19,11 @@ public class BuscarTodosUseCase : IBuscarTodosUseCase
     {
         var cadastros = await _repository.BuscarTodos();
 
-        var cadastroResponseJsons = _mapper.Map<IList<CadastroResponseJson>>(cadastros);
+        var cadastroResponseJson = _mapper.Map<IList<CadastroResponseJson>>(cadastros);
 
         return new CadastrosResponseJson
         {
-            Cadastros = cadastroResponseJsons
+            Cadastros = cadastroResponseJson
         };
     }
 }

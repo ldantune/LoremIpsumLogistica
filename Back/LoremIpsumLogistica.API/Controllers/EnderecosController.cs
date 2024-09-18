@@ -1,35 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using LoremIpsumLogistica.API.Request;
 using LoremIpsumLogistica.API.Responses;
-using LoremIpsumLogistica.API.UseCase.Cadastro;
+using LoremIpsumLogistica.API.UseCase.Endereco;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoremIpsumLogistica.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CadastrosController : ControllerBase
+public class EnderecosController : ControllerBase
 {
     [HttpGet]
-    [ProducesResponseType(typeof(CadastrosResponseJson), StatusCodes.Status200OK)]
+    [Route("cadastro-id/{id}")]
+    [ProducesResponseType(typeof(EnderecosResponseJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> BuscarTodos([FromServices] IBuscarTodosUseCase useCase)
+    public async Task<IActionResult> EnderecosByCadastroId(
+            [FromServices] IBuscaByIdCadastroUseCase useCase,
+            [FromRoute] long id
+            )
     {
-        var response = await useCase.Execute();
+        var response = await useCase.Execute(id);
 
-        if (response.Cadastros.Any())
-            return Ok(response);
-
-        return NoContent();
+        return Ok(response);
     }
 
     [HttpGet]
     [Route("{id}")]
-    [ProducesResponseType(typeof(CadastroResponseJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(EnderecoResponseJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> CadastroById(
-        [FromServices] ICadastroByIdUseCase useCase,
-        [FromRoute] long id
-        )
+    public async Task<IActionResult> EnderecoById(
+            [FromServices] IEnderecoByIdUseCase useCase,
+            [FromRoute] long id
+            )
     {
         var response = await useCase.Execute(id);
 
@@ -37,12 +42,12 @@ public class CadastrosController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Models.Cadastro), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(EnderecoResponseJson), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Salvar(
-        [FromServices] ISalvarCadastroUseCase useCase,
-        [FromBody] CadastroRequestJson request
-    )
+            [FromServices] ISalvarEnderecoUseCase useCase,
+            [FromBody] EnderecoRequestJson request
+        )
     {
         var response = await useCase.Execute(request);
         return Created(string.Empty, response);
@@ -52,10 +57,10 @@ public class CadastrosController : ControllerBase
     [Route("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Atualiza(
-        [FromServices] IAtualizarUseCase useCase,
+    public async Task<IActionResult> Atualizar(
+        [FromServices] IAtualizarEnderecoUseCase useCase,
         [FromRoute] long id,
-        [FromBody] CadastroRequestJson request)
+        [FromBody] EnderecoRequestJson request)
     {
         await useCase.Execute(id, request);
 
@@ -67,7 +72,7 @@ public class CadastrosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Excluir(
-            [FromServices] IExcluirCadastroUseCase useCase,
+            [FromServices] IExcluirEnderecoUseCase useCase,
             [FromRoute] long id)
     {
         await useCase.Execute(id);

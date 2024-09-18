@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0OvmSza0nIk=",
+  "dgSpecHash": "sCoZpsp73/o=",
   "success": true,
-  "projectFilePath": "c:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\LoremIpsumLogistica.API.csproj",
+  "projectFilePath": "C:\\workspace\\LoremIpsumLogistica\\Back\\LoremIpsumLogistica.API\\LoremIpsumLogistica.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lucas\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\lucas\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
