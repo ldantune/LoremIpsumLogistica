@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\LoremIpsumLogistica.API.props" />
+</Project>
