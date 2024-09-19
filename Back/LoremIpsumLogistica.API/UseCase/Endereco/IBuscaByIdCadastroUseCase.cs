@@ -4,5 +4,5 @@ namespace LoremIpsumLogistica.API.UseCase.Endereco;
 
 public interface IBuscaByIdCadastroUseCase
 {
-    Task<EnderecosResponseJson> Execute(long cadastroId);
+    Task<IList<EnderecoResponseJson>> Execute(long cadastroId);
 }

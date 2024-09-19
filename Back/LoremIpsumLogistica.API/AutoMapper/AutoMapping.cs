@@ -21,6 +21,7 @@ public class AutoMapping : Profile
     private void DomainToResponse()
     {
         CreateMap<Models.Cadastro, CadastroResponseJson>();
-        CreateMap<Models.Endereco, EnderecoResponseJson>();
+        CreateMap<Models.Endereco, EnderecoResponseJson>()
+            .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => src.Tipo.ToString()));
     }
 }

@@ -15,15 +15,12 @@ public class BuscaByIdCadastroUseCase : IBuscaByIdCadastroUseCase
         _repository = repository;
 
     }
-    public async Task<EnderecosResponseJson> Execute(long cadastroId)
+    public async Task<IList<EnderecoResponseJson>> Execute(long cadastroId)
     {
         var enderecos = await _repository.BuscarTodosByIdCadastro(cadastroId);
 
         var enderecoResponseJson = _mapper.Map<IList<EnderecoResponseJson>>(enderecos);
 
-        return new EnderecosResponseJson
-        {
-            Enderecos = enderecoResponseJson
-        };
+        return enderecoResponseJson;
     }
 }

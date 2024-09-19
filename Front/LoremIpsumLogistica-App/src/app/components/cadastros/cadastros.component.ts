@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Cadastro } from '../../models/Cadastro';
-import { CadastroService } from '../../services/CadastroService';
+import { CadastroService } from '../../services/Cadastro.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -19,6 +19,7 @@ import {
 } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cadastros',
@@ -34,6 +35,7 @@ import { ToastrService } from 'ngx-toastr';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
   ],
   providers: [DatePipe],
 })
@@ -60,7 +62,7 @@ export class CadastrosComponent implements OnInit {
     private modalService: BsModalService,
     private datePipe: DatePipe,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
@@ -72,9 +74,16 @@ export class CadastrosComponent implements OnInit {
     this.cadastros = [];
     this.cadastroService.getCadastros().subscribe(
       (cadastroRetorno: Cadastro[]) => {
-        console.log(cadastroRetorno);
         if (cadastroRetorno != null) {
           cadastroRetorno.forEach((cadastro) => {
+            const [year, month, day] = cadastro.dataNascimento.split('-');
+            const formattedDate = this.datePipe.transform(
+              new Date(+year, +month - 1, +day),
+              'dd-MM-yyyy'
+            );
+            if (formattedDate) {
+              cadastro.dataNascimento = formattedDate;
+            }
             this.cadastros.push(cadastro);
           });
         }
@@ -113,14 +122,19 @@ export class CadastrosComponent implements OnInit {
     this.spinner.show();
     this.cadastroService.deleteCadastro(this.cadastroId).subscribe(
       (result: any) => {
-        console.log(result);
-        this.toastr.success('O cadastro foi deletado com sucesso.', 'Deletado!');
+        this.toastr.success(
+          'O cadastro foi deletado com sucesso.',
+          'Deletado!'
+        );
         this.spinner.hide();
         this.carregarCadastros();
       },
       (error: any) => {
         console.error(error);
-        this.toastr.error(`Erro ao tentar deletar cadastro ${this.cadastroId}`, 'Erro');
+        this.toastr.error(
+          `Erro ao tentar deletar cadastro ${this.cadastroId}`,
+          'Erro'
+        );
         this.spinner.hide();
       },
       () => {
@@ -141,13 +155,13 @@ export class CadastrosComponent implements OnInit {
     event.stopPropagation();
 
     this.estadoSalvar = 'post';
-    this.form.reset(); 
+    this.form.reset();
 
     this.form.patchValue({
       dataNascimento: '',
       nome: '',
       sexo: '',
-      id: ''
+      id: '',
     });
     this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
   }
@@ -156,7 +170,7 @@ export class CadastrosComponent implements OnInit {
     this.title = 'Edição Cadastro';
 
     event.stopPropagation();
-    this.form.reset(); 
+    this.form.reset();
 
     this.form.patchValue({
       dataNascimento: '',
@@ -168,17 +182,19 @@ export class CadastrosComponent implements OnInit {
       this.estadoSalvar = 'put';
 
       this.spinner.show();
-      this.cadastroService.getCadastroById(cadastroId).subscribe(
-        (cadastro: Cadastro) => {
-          this.cadastro = { ...cadastro };
-          this.form.patchValue(this.cadastro);
-        },
-        (error: any) => {
-          this.toastr.error('Erro ao tentar carregar cadastro.', 'Erro');
-          console.error(error);
-        }
-      )
-      .add(() => this.spinner.hide());
+      this.cadastroService
+        .getCadastroById(cadastroId)
+        .subscribe(
+          (cadastro: Cadastro) => {
+            this.cadastro = { ...cadastro };
+            this.form.patchValue(this.cadastro);
+          },
+          (error: any) => {
+            this.toastr.error('Erro ao tentar carregar cadastro.', 'Erro');
+            console.error(error);
+          }
+        )
+        .add(() => this.spinner.hide());
     }
 
     this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
@@ -231,5 +247,4 @@ export class CadastrosComponent implements OnInit {
       }
     }
   }
-
 }

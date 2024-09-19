@@ -12,6 +12,6 @@ public class EnderecoResponseJson
     public string Bairro { get; set; } = string.Empty;
     public string Cidade { get; set; } = string.Empty;
     public string UF { get; set; } = string.Empty;
-    public TipoEndereco Tipo { get; set; }
+    public string Tipo { get; set; } = string.Empty;
     public long CadastroId { get; set; }
 }

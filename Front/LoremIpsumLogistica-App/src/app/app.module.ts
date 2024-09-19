@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CadastrosComponent } from './components/cadastros/cadastros.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { CadastroService } from './services/CadastroService';
+import { CadastroService } from './services/Cadastro.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -14,7 +14,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ToastrModule } from 'ngx-toastr';
-
+import { EnderecosComponent } from './components/enderecos/enderecos.component';
+import { EnderecoService } from './services/Endereco.service';
+import { CepService } from './services/Cep.service';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -25,9 +28,10 @@ import { ToastrModule } from 'ngx-toastr';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CadastrosComponent,
+    EnderecosComponent,
     HttpClientModule,
     BrowserAnimationsModule,
-    CadastrosComponent,
     FormsModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
@@ -38,11 +42,16 @@ import { ToastrModule } from 'ngx-toastr';
       preventDuplicates: true,
       progressBar: true
     }),
+    NgxMaskDirective
+    
   ],
   providers: [
     CadastroService,
+    EnderecoService,
+    CepService,
     provideAnimationsAsync(),
-    BsModalService
+    BsModalService,
+    provideNgxMask({ /* opções de cfg */ })
   ],
   bootstrap: [AppComponent]
 })

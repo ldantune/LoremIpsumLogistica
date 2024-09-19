@@ -16,9 +16,9 @@ namespace LoremIpsumLogistica.API.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataNascimento = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Sexo = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Nome = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    DataNascimento = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Sexo = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -31,13 +31,13 @@ namespace LoremIpsumLogistica.API.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CEP = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Logradouro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Numero = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Complemento = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Bairro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cidade = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UF = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CEP = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Logradouro = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Numero = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Complemento = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Bairro = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Cidade = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    UF = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     Tipo = table.Column<int>(type: "int", nullable: false),
                     CadastroId = table.Column<long>(type: "bigint", nullable: false)
                 },

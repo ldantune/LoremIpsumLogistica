@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("LoremIpsumLogistica.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be622177ee011ac87b17c0f38d08d7a83483d4ea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2b383c394152579c3cab540828764886e5cb5111")]
 [assembly: System.Reflection.AssemblyProductAttribute("LoremIpsumLogistica.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("LoremIpsumLogistica.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

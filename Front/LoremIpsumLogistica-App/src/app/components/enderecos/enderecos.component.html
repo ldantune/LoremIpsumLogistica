@@ -1,0 +1,202 @@
+<div class="card rounded shadow-sm p-3" style="margin-top: 20px !important;">
+  <div class="d-flex">
+    <div class="flex-fill" style="padding-right: 8px;">
+      <a class="my-2 mb-2 mr-2 btn btn-secondary btn-sm"
+        style="margin-right: 10px !important;" routerLink="/cadastros">
+        <i class="fa-solid fa-left-long"
+          style="margin-right: 10px !important;"></i>Voltar
+        <b class="d-none d-sm-block" style="margin-left: 3px;"></b>
+      </a>
+      <button type="button" class="btn btn-danger btn-sm my-2 mb-2 mr-2 ml-2"
+        tooltip="Novo" (click)="openModalNew($event, templateFormEndereco)">
+        <i class="fa fa-plus" style="margin-right: 10px !important;"></i> Novo
+      </button>
+    </div>
+    <div>
+
+    </div>
+
+  </div>
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>CEP</th>
+        <th>Logradouro</th>
+        <th>Número</th>
+        <th>Complemento</th>
+        <th>Bairro</th>
+        <th>Tipo</th>
+        <th>Cidade</th>
+        <th>Opções</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="enderecos && enderecos.length">
+      <tr *ngFor="let endereco of enderecos" style="cursor: pointer;">
+        <td>{{endereco.id}}</td>
+        <td>{{endereco.cep}}</td>
+        <td>{{endereco.logradouro}}</td>
+        <td>{{endereco.numero}}</td>
+        <td>{{endereco.complemento}}</td>
+        <td>{{endereco.bairro}}</td>
+        <td>{{endereco.tipo}}</td>
+        <td>{{endereco.cidade}} - {{endereco.uf}}</td>
+        <td>
+          <button type="button" style="margin-right: 2px;"
+          (click)="openModalEdit($event, templateFormEndereco, endereco.id)"
+            class="btn btn-primary btn-sm mr-2" tooltip="Editar">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button type="button" class="btn btn-danger btn-sm" tooltip="Excluir"
+            (click)="openModal($event, template, endereco.id)"
+            style="margin-right: 2px;">
+            <i class="fa fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!enderecos.length">
+      <tr>
+        <td colspan="8" class="text-center">
+          <h4>Nenhum endereço cadastrado!</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que quer deletar o Endereço de código {{this.enderecoId}}</p>
+    <button type="button" class="btn btn-default"
+      (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary"
+      (click)="decline()">Não</button>
+  </div>
+</ng-template>
+
+<ng-template #templateFormEndereco>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left title-cadastro">{{ title }}</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close"
+      (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div [ngClass]="{'col-md-12 pr-0': modoEditar, 'col-md-12': !modoEditar}">
+        <div class="card rounded shadow-sm">
+          <form [formGroup]="formEndereco">
+            <div class="p-3">
+              <div class="row form-row">
+                <div class="form-group col-md-3">
+                  <label>CEP</label>
+                  <input type="text" class="form-control"
+                    [ngClass]="cssValidator(f.cep)" formControlName="cep"
+                    mask="00000-000" inputmode="numeric"
+                    placeholder="CEP" [(ngModel)]="endereco.cep"
+                    (input)="buscarCep()">
+                  <div *ngIf="f.cep.errors?.required" class="invalid-feedback">
+                    CEP é obrigatório.
+                  </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <label>Logradouro</label>
+                  <input type="text" class="form-control"
+                    [ngClass]="cssValidator(f.logradouro)"
+                    formControlName="logradouro"
+                    placeholder="Logradouro" [(ngModel)]="endereco.logradouro">
+                  <div *ngIf="f.logradouro.errors?.required"
+                    class="invalid-feedback">
+                    Logradouro é obrigatório.
+                  </div>
+                </div>
+
+                <div class="form-group col-md-3">
+                  <label>Número</label>
+                  <input type="text" class="form-control"
+                    [ngClass]="cssValidator(f.numero)" formControlName="numero"
+                    placeholder="Número" [(ngModel)]="endereco.numero">
+                  <div *ngIf="f.numero.errors?.required"
+                    class="invalid-feedback">
+                    Número é obrigatório.
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Tipo Endereço</label>
+                  <select class="form-control"
+                    [ngClass]="cssValidator(f.tipo)"
+                    formControlName="tipo">
+                    <option value>Selecione</option>
+                    <option value="1">Residencial</option>
+                    <option value="2">Comercial</option>
+                  </select>
+                  <div *ngIf="f.tipo.errors?.required && f.tipo.touched"
+                    class="invalid-feedback">
+                    Tipo é obrigatório.
+                  </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                  <label>Complemento</label>
+                  <input type="text" class="form-control"
+                    [ngClass]="cssValidator(f.complemento)"
+                    formControlName="complemento"
+                    placeholder="Complemento"
+                    [(ngModel)]="endereco.complemento">
+                </div>
+
+                <div class="form-group col-md-12">
+                  <label>Bairro</label>
+                  <input type="text" class="form-control"
+                    [ngClass]="cssValidator(f.bairro)" formControlName="bairro"
+                    placeholder="Bairro" [(ngModel)]="endereco.bairro">
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label>Cidade</label>
+                  <input type="text" class="form-control"
+                    [ngClass]="cssValidator(f.cidade)" formControlName="cidade"
+                    placeholder="Cidade" [(ngModel)]="endereco.cidade">
+                  <div *ngIf="f.cidade.errors?.required"
+                    class="invalid-feedback">
+                    Cidade é obrigatório.
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label>UF</label>
+                  <input type="text" class="form-control"
+                    [ngClass]="cssValidator(f.uf)" formControlName="uf"
+                    placeholder="Cidade" [(ngModel)]="endereco.uf">
+                  <div *ngIf="f.uf.errors?.required" class="invalid-feedback">
+                    UF é obrigatório.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <div class="d-flex" style="justify-content: space-around;">
+                <button class="btn btn-outline-secondary mr-auto border"
+                  (click)="cancelForm()">
+                  Cancelar
+                </button>
+                <button class="btn btn-success" [disabled]="!formEndereco.valid"
+                  (click)="salvarEndereco()">
+                  <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+                  Salvar Endereço
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</ng-template>

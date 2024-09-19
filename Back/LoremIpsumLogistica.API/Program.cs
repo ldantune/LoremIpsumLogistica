@@ -12,6 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// Adiciona o suporte ao CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder.WithOrigins("http://localhost:4200")  // Permite o acesso a partir do Angular
+               .AllowAnyMethod()                      // Permite qualquer método HTTP
+               .AllowAnyHeader();                     // Permite qualquer cabeçalho
+    });
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddScoped(option => new AutoMapper.MapperConfiguration(autoMapperOptions =>
@@ -57,16 +68,15 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowSpecificOrigin");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors(cors => cors
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowAnyOrigin());
+
 
 app.Run();
 

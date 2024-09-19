@@ -15,7 +15,7 @@ public class EnderecosController : ControllerBase
 {
     [HttpGet]
     [Route("cadastro-id/{id}")]
-    [ProducesResponseType(typeof(EnderecosResponseJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(EnderecoResponseJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> EnderecosByCadastroId(
             [FromServices] IBuscaByIdCadastroUseCase useCase,
