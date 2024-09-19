@@ -46,6 +46,8 @@ builder.Services.AddScoped<IAtualizarEnderecoUseCase, AtualizarEnderecoUseCase>(
 builder.Services.AddScoped<IExcluirEnderecoUseCase, ExcluirEnderecoUseCase>();
 builder.Services.AddScoped<IEnderecoByIdUseCase, EnderecoByIdUseCase>();
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -60,6 +62,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors(cors => cors
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowAnyOrigin());
 
 app.Run();
 

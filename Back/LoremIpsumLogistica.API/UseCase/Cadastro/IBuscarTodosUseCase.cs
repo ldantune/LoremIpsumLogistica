@@ -5,5 +5,5 @@ namespace LoremIpsumLogistica.API.UseCase.Cadastro;
 
 public interface IBuscarTodosUseCase
 {
-    Task<CadastrosResponseJson> Execute();
+    Task<IList<CadastroResponseJson>> Execute();
 }

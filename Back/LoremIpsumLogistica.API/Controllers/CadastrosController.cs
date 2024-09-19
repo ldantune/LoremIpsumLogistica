@@ -16,7 +16,7 @@ public class CadastrosController : ControllerBase
     {
         var response = await useCase.Execute();
 
-        if (response.Cadastros.Any())
+        if (response.Any())
             return Ok(response);
 
         return NoContent();

@@ -15,15 +15,12 @@ public class BuscarTodosUseCase : IBuscarTodosUseCase
         _repository = repository;
 
     }
-    public async Task<CadastrosResponseJson> Execute()
+    public async Task<IList<CadastroResponseJson>> Execute()
     {
         var cadastros = await _repository.BuscarTodos();
 
         var cadastroResponseJson = _mapper.Map<IList<CadastroResponseJson>>(cadastros);
 
-        return new CadastrosResponseJson
-        {
-            Cadastros = cadastroResponseJson
-        };
+        return cadastroResponseJson;
     }
 }

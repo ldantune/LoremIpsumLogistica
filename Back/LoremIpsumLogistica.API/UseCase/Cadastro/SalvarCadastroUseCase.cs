@@ -28,7 +28,7 @@ public class SalvarCadastroUseCase : ISalvarCadastroUseCase
 
         var cadastro = _mapper.Map<Models.Cadastro>(request);
 
-        cadastro.DataNascimento = _dateTimeConverter.ParseDate(cadastro.DataNascimento).ToString();
+        //cadastro.DataNascimento = _dateTimeConverter.ParseDate(cadastro.DataNascimento).ToString();
 
         await _repository.SalvarCadastro(cadastro);
 
