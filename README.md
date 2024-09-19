@@ -35,6 +35,12 @@ dotnet restore
 Ajuste as variáveis de ambiente ou arquivos de configuração conforme necessário. 
 Verifique o arquivo **appsettings.Development.json** para garantir que todas as configurações estejam corretas, **incluindo conexões de banco de dados** e outras configurações de ambiente.
 
+# Criar o banco de dados com o nome **loremipsumlogistica** ou outro de acordo com as configuração da **ConnectionStrings**
+
+# Executar o comando seguinte para criar as tabelas no banco de dados:
+
+dotnet ef database update
+
 3. **Compilar e Executar o Projeto**
 
 Para compilar e executar o projeto, use os seguintes comandos:
